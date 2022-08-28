@@ -23,15 +23,14 @@ paths:
       requestBody:
         content:
           application/json:
-            example:
-              id: 362
-              name: Richard Roe
             schema:
               $ref: '#/components/schemas/_ip_get_request'
-        description: user to create
+        description: IPv4 address to register
       responses:
         "200":
           description: The new IPv4 address has been registered
+        "400":
+          description: Bad Request
         "500":
           description: Internal Server Error
 components:

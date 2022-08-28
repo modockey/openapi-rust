@@ -29,6 +29,9 @@ pub enum IpPostResponse {
     /// The new IPv4 address has been registered
     TheNewIPv
     ,
+    /// Bad Request
+    BadRequest
+    ,
     /// Internal Server Error
     InternalServerError
 }

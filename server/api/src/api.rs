@@ -4,6 +4,7 @@
 
 use async_trait::async_trait;
 use futures::{future, Stream, StreamExt, TryFutureExt, TryStreamExt};
+use hyper::http::request;
 use hyper::server::conn::Http;
 use hyper::service::Service;
 use log::info;
@@ -99,12 +100,15 @@ impl<C> Server<C> {
 
 use openapi_client::server::MakeService;
 use openapi_client::IpGetResponse::GetGlobalIPv;
+use openapi_client::IpPostResponse::*;
 use openapi_client::{Api, IpGetResponse, IpPostResponse};
 use std::error::Error;
 use swagger::ApiError;
 
 use crate::db;
+use crate::db::model::schema::ipv4_history::ipv4_address;
 use crate::usecase;
+use usecase::*;
 
 use models::IpGet200Response;
 
@@ -116,7 +120,7 @@ where
     async fn ip_get(&self, context: &C) -> Result<IpGetResponse, ApiError> {
         let context = context.clone();
         info!("get_ip() - X-Span-ID: {:?}", context.get().0.clone());
-        match usecase::get_effective_ipv4_record() {
+        match get_effective_ipv4_record() {
             Ok(ipv4_record) => Ok(GetGlobalIPv(IpGet200Response {
                 ipv4_address: Some(ipv4_record.ipv4_address.to_string()),
                 checked_at: Some(ipv4_record.last_checked_at),
@@ -136,6 +140,14 @@ where
             ip_get_request,
             context.get().0.clone()
         );
-        Err(ApiError("Generic failure".into()))
+
+        if let Some(request) = ip_get_request && let Some(address)=request.ipv4_address{
+            match post_ip4_address(&address) {
+            Ok(()) => Ok(TheNewIPv {}),
+                Err(e) => Err(ApiError(e.into())),
+            }
+        } else {
+                return Ok(BadRequest);
+        }
     }
 }

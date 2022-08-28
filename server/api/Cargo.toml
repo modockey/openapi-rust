@@ -56,11 +56,11 @@ frunk_derives = { version = "0.3.0", optional = true }
 frunk_core = { version = "0.3.0", optional = true }
 frunk-enum-derive = { version = "0.2.0", optional = true }
 frunk-enum-core = { version = "0.2.0", optional = true }
+diesel = { version = "1.4.8", default-features = false, features = ["postgres", "chrono"] }
 tokio = "1.14"
 clap = "2.25"
 env_logger = "0.7"
 tokio-openssl = "0.6.3"
-diesel = { version = "1.4.8", default-features = false, features = ["postgres", "chrono"] }
 dotenv = "0.15.0"
 
 [dev-dependencies]

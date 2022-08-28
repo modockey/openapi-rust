@@ -528,6 +528,12 @@ impl<S, C> Api<C> for Client<S, C> where
                     IpPostResponse::TheNewIPv
                 )
             }
+            400 => {
+                let body = response.into_body();
+                Ok(
+                    IpPostResponse::BadRequest
+                )
+            }
             500 => {
                 let body = response.into_body();
                 Ok(

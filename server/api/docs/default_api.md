@@ -45,7 +45,7 @@ Optional parameters are passed through a map[string]interface{}.
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ip_get_request** | [**IpGetRequest**](IpGetRequest.md)| user to create | 
+ **ip_get_request** | [**IpGetRequest**](IpGetRequest.md)| IPv4 address to register | 
 
 ### Return type
 
