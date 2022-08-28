@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  description: "GET/POST IPv4 Address"
+  version: "1.0.0"
+  title: "openapi-rust"
+tags:
+  - name: "IP"
+paths:
+  /ip:
+    get:
+      responses:
+        "200":
+          description: "Get Global IPv4 address of the system"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  IPv4_address:
+                    type: string
+                    format: ipv4
+                  checked_at:
+                    type: string
+                    format: date-time
+        "500":
+          description: "Internal Server Error"
+    post:
+      requestBody:
+        description: "IPv4 address to register"
+        content:
+          application/json:
+            schema:
+              properties:
+                IPv4_address:
+                  type: string
+                  format: ipv4
+      responses:
+        "200":
+          description: "The new IPv4 address has been registered"
+        "500":
+          description: "Internal Server Error"
