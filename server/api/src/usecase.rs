@@ -1,8 +1,6 @@
 use crate::db;
 use db::*;
 
-use regex::Regex;
-
 pub fn get_effective_ipv4_record() -> Result<db::model::Ipv4Record, String> {
     let conn = establish_connection();
     let effective_records = get_effective_records(&conn);
@@ -35,11 +33,4 @@ pub fn post_ip4_address(ipv4_address: &str) -> Result<(), String> {
     disable_record(&conn, &effective_records[0].id);
     insert_record(&conn, ipv4_address);
     return Ok(());
-}
-
-pub fn is_ipv4(text: &str) -> bool {
-    let re = Regex::new(
-        r"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
-    ).unwrap();
-    return re.is_match(text);
 }

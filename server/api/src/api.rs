@@ -143,11 +143,20 @@ where
 
         if let Some(request) = ip_get_request && let Some(address)=request.ipv4_address && is_ipv4(&address){
             match post_ip4_address(&address) {
-            Ok(()) => Ok(TheNewIPv {}),
+        Ok(()) => Ok(TheNewIPv {}),
                 Err(e) => Err(ApiError(e.into())),
             }
         } else {
                 return Ok(BadRequest);
         }
     }
+}
+
+use regex::Regex;
+
+fn is_ipv4(text: &str) -> bool {
+    let re = Regex::new(
+        r"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
+    ).unwrap();
+    return re.is_match(text);
 }
