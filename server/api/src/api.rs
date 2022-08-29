@@ -158,5 +158,5 @@ fn is_ipv4(text: &str) -> bool {
     let re = Regex::new(
         r"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$",
     ).unwrap();
-    return re.is_match(text);
+    re.is_match(text)
 }
