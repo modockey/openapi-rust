@@ -147,7 +147,7 @@ where
                 Err(e) => Err(ApiError(e.into())),
             }
         } else {
-                return Ok(BadRequest);
+            Ok(BadRequest)
         }
     }
 }

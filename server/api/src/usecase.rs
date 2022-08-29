@@ -36,5 +36,5 @@ pub fn post_ip4_address(ipv4_address: &str) -> Result<(), String> {
 
     disable_record(&conn, &effective_records[0].id);
     insert_record(&conn, ipv4_address);
-    return Ok(());
+    Ok(())
 }
