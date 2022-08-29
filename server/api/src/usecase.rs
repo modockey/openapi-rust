@@ -25,6 +25,10 @@ pub fn post_ip4_address(ipv4_address: &str) -> Result<(), String> {
         return Ok(());
     }
 
+    if effective_records.len() > 1 {
+        return Err("Too many IPv4 records have been found".into());
+    }
+
     if ipv4_address == effective_records[0].ipv4_address {
         update_last_checked_at(&conn, &effective_records[0].id);
         return Ok(());

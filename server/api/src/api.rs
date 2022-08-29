@@ -143,7 +143,7 @@ where
 
         if let Some(request) = ip_get_request && let Some(address)=request.ipv4_address && is_ipv4(&address){
             match post_ip4_address(&address) {
-        Ok(()) => Ok(TheNewIPv {}),
+                Ok(()) => Ok(TheNewIPv {}),
                 Err(e) => Err(ApiError(e.into())),
             }
         } else {
